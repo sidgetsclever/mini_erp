@@ -1,0 +1,88 @@
+<div class="page-header">
+  <h2>New Order</h2>
+  <p class="subtitle">Create a new print shop order with one or more job items.</p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-card">
+  <section class="section">
+    <h3 class="section-title">Customer Details</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="customerName">Customer Name *</label>
+        <input id="customerName" type="text" formControlName="customerName" placeholder="e.g. Acme Corp"
+          [class.invalid]="form.get('customerName')?.invalid && form.get('customerName')?.touched" />
+        <span class="error" *ngIf="form.get('customerName')?.invalid && form.get('customerName')?.touched">Required (min 2 characters)</span>
+      </div>
+
+      <div class="form-group">
+        <label for="contactEmail">Contact Email</label>
+        <input id="contactEmail" type="email" formControlName="contactEmail" placeholder="e.g. jane@acme.com"
+          [class.invalid]="form.get('contactEmail')?.invalid && form.get('contactEmail')?.touched" />
+        <span class="error" *ngIf="form.get('contactEmail')?.invalid && form.get('contactEmail')?.touched">Must be a valid email</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Order Notes</label>
+      <textarea id="notes" formControlName="notes" rows="2" placeholder="Delivery instructions, special requirements…"></textarea>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h3 class="section-title">Job Items</h3>
+      <button type="button" class="btn-add" (click)="addItem()">+ Add Item</button>
+    </div>
+
+    <div formArrayName="items">
+      <div class="item-card" *ngFor="let _item of items.controls; let i = index" [formGroupName]="i">
+        <div class="item-header">
+          <span class="item-label">Item {{ i + 1 }}</span>
+          <button type="button" class="btn-remove" (click)="removeItem(i)" [disabled]="items.length === 1">Remove</button>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="grid-column: span 2">
+            <label [attr.for]="'description-' + i">Description *</label>
+            <input [id]="'description-' + i" type="text" formControlName="description" placeholder="e.g. A4 Flyers, Business Cards…"
+              [class.invalid]="itemAt(i).get('description')?.invalid && itemAt(i).get('description')?.touched" />
+            <span class="error" *ngIf="itemAt(i).get('description')?.invalid && itemAt(i).get('description')?.touched">Required</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label [attr.for]="'type-' + i">Type</label>
+            <select [id]="'type-' + i" formControlName="type">
+              <option *ngFor="let t of itemTypes" [value]="t">{{ t }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'quantity-' + i">Quantity *</label>
+            <input [id]="'quantity-' + i" type="number" formControlName="quantity" min="1"
+              [class.invalid]="itemAt(i).get('quantity')?.invalid && itemAt(i).get('quantity')?.touched" />
+            <span class="error" *ngIf="itemAt(i).get('quantity')?.invalid && itemAt(i).get('quantity')?.touched">Min 1</span>
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'unit-' + i">Unit</label>
+            <select [id]="'unit-' + i" formControlName="unit">
+              <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label [attr.for]="'item-notes-' + i">Item Notes</label>
+          <input [id]="'item-notes-' + i" type="text" formControlName="notes" placeholder="Colour spec, size, paper weight…" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-primary">Create Order</button>
+    <a routerLink="/dashboard" class="btn-cancel">Cancel</a>
+  </div>
+</form>

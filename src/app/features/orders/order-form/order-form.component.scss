@@ -1,0 +1,217 @@
+.page-header {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.6rem;
+    color: #1e293b;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+  }
+}
+
+.form-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 860px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f1f5f9;
+  &:last-of-type { border-bottom: none; }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 0.8rem;
+
+  label { font-size: 0.82rem; font-weight: 600; color: #475569; }
+
+  input, select, textarea {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+
+    &:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+      background: white;
+    }
+    &.invalid {
+      border-color: #ef4444;
+      background: #fff5f5;
+    }
+  }
+  .error { color: #dc2626; font-size: 0.78rem; }
+}
+
+.item-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.item-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-add {
+  padding: 0.35rem 0.9rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover { background: #dbeafe; }
+}
+
+.btn-remove {
+  padding: 0.25rem 0.7rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  &:hover { background: #fff1f2; }
+  &:disabled { opacity: 0.3; cursor: not-allowed; }
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  padding: 0.6rem 1.6rem;
+  background: #1d4ed8;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover { background: #1e40af; }
+}
+
+.btn-cancel {
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.95rem;
+  &:hover { text-decoration: underline; }
+}
+.orders-section {
+  max-width: 800px;
+
+  h3 {
+    margin-bottom: 0.8rem;
+    color: #1e293b;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+
+    th {
+      background: #f1f5f9;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #475569;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+
+    tr:hover td { background: #f8fafc; }
+
+    .id-cell { font-weight: 700; color: #94a3b8; }
+    .date-cell { color: #94a3b8; font-size: 0.85rem; }
+  }
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  &[data-status="New"] { background: #dbeafe; color: #1d4ed8; }
+  &[data-status="In Progress"] { background: #fef9c3; color: #92400e; }
+  &[data-status="Done"] { background: #dcfce7; color: #15803d; }
+}
+
+.empty-state {
+  color: #94a3b8;
+  font-style: italic;
+  margin-top: 1rem;
+}

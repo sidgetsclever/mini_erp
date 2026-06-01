@@ -1,0 +1,115 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h2 { margin: 0 0 0.2rem; font-size: 1.5rem; color: #1e293b; }
+  .subtitle { margin: 0.1rem 0 0; color: #64748b; font-size: 0.9rem; }
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+
+  &[data-status="New"] { background: #dbeafe; color: #1d4ed8; }
+  &[data-status="In Progress"] { background: #fef9c3; color: #92400e; }
+  &[data-status="Done"] { background: #dcfce7; color: #15803d; }
+}
+
+.items-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .count {
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    padding: 1px 8px;
+  }
+}
+
+.item-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.item-type {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-right: 0.5rem;
+}
+
+.item-desc { font-weight: 600; color: #1e293b; margin-right: 0.5rem; }
+.item-qty { color: #64748b; font-size: 0.88rem; }
+.item-notes { margin: 0.5rem 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic; }
+
+.status-select {
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+
+  &[data-status="Pending"] { background: #f1f5f9; color: #475569; }
+  &[data-status="In Progress"] { background: #fef9c3; color: #92400e; border-color: #fde68a; }
+  &[data-status="Done"] { background: #dcfce7; color: #15803d; border-color: #86efac; }
+  &[data-status="On Hold"] { background: #fee2e2; color: #7f1d1d; border-color: #fca5a5; }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  padding: 0.55rem 1.5rem;
+  background: #1d4ed8;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover { background: #1e40af; }
+}
+
+.btn-cancel {
+  color: #64748b;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.not-found { color: #dc2626; }

@@ -1,0 +1,60 @@
+<div class="dash-header">
+  <h2>Dashboard</h2>
+  <a routerLink="/orders/new" class="btn-new">+ New Order</a>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-label">Total Orders</span>
+    <span class="stat-value">{{ totalOrders }}</span>
+  </div>
+  <div class="stat-card new">
+    <span class="stat-label">New</span>
+    <span class="stat-value">{{ newOrders }}</span>
+  </div>
+  <div class="stat-card in-progress">
+    <span class="stat-label">In Progress</span>
+    <span class="stat-value">{{ inProgressOrders }}</span>
+  </div>
+  <div class="stat-card done">
+    <span class="stat-label">Done</span>
+    <span class="stat-value">{{ doneOrders }}</span>
+  </div>
+</div>
+
+<h3 class="table-heading">All Orders</h3>
+
+<table *ngIf="orders.length > 0; else noOrders">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Customer</th>
+      <th>Items</th>
+      <th>Items Done</th>
+      <th>Status</th>
+      <th>Last Updated</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let o of orders">
+      <td class="id-col">{{ o.id }}</td>
+      <td>
+        <strong>{{ o.customerName }}</strong>
+        <span class="email" *ngIf="o.contactEmail"> — {{ o.contactEmail }}</span>
+      </td>
+      <td>{{ o.items.length }}</td>
+      <td>{{ doneItems(o) }} / {{ o.items.length }}</td>
+      <td><span class="badge" [attr.data-status]="o.status">{{ o.status }}</span></td>
+      <td class="date-col">{{ o.updatedAt | date:'dd MMM, HH:mm' }}</td>
+      <td><a class="update-link" [routerLink]="['/orders/update', o.id]">Update</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noOrders>
+  <div class="empty">
+    <p>No orders yet.</p>
+    <a routerLink="/orders/new" class="btn-new">Create your first order</a>
+  </div>
+</ng-template>

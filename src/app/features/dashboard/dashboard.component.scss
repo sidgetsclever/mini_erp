@@ -1,0 +1,94 @@
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h2 { margin: 0; font-size: 1.6rem; color: #1e293b; }
+}
+
+.btn-new {
+  padding: 0.5rem 1.2rem;
+  background: #1d4ed8;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  &:hover { background: #1e40af; }
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 1.2rem 2rem;
+  min-width: 120px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &.new { background: #dbeafe; }
+  &.in-progress { background: #fef9c3; }
+  &.done { background: #dcfce7; }
+}
+
+.stat-label { font-size: 0.85rem; color: #555; }
+.stat-value { font-size: 2rem; font-weight: bold; }
+
+.table-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.5rem 0 0.8rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th { background: #f5f5f5; }
+
+  .id-col { color: #94a3b8; font-weight: 700; }
+  .date-col { color: #94a3b8; font-size: 0.85rem; }
+  .email { color: #94a3b8; font-size: 0.85rem; }
+
+  .update-link {
+    color: #1d4ed8;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+}
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: #64748b;
+}
+
+
+.badge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &[data-status="New"] { background: #dbeafe; color: #1d4ed8; }
+  &[data-status="In Progress"] { background: #fef9c3; color: #92400e; }
+  &[data-status="Done"] { background: #dcfce7; color: #15803d; }
+}

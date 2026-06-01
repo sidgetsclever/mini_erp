@@ -1,0 +1,36 @@
+<ng-container *ngIf="order() as o; else notFound">
+  <div class="page-header">
+    <div>
+      <h2>Order #{{ o.id }} — {{ o.customerName }}</h2>
+      <p class="subtitle" *ngIf="o.contactEmail">{{ o.contactEmail }}</p>
+      <p class="subtitle" *ngIf="o.notes">{{ o.notes }}</p>
+    </div>
+    <span class="badge" [attr.data-status]="o.status">{{ o.status }}</span>
+  </div>
+
+  <h3 class="items-heading">Job Items <span class="count">{{ o.items.length }}</span></h3>
+
+  <div class="item-card" *ngFor="let item of o.items">
+    <div class="item-top">
+      <div>
+        <span class="item-type">{{ item.type }}</span>
+        <span class="item-desc">{{ item.description }}</span>
+        <span class="item-qty">{{ item.quantity }} {{ item.unit }}</span>
+      </div>
+      <select class="status-select" [value]="item.status" (change)="setItemStatus(item.id, $event)"
+        [attr.data-status]="item.status">
+        <option *ngFor="let s of itemStatuses" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+    <p class="item-notes" *ngIf="item.notes">{{ item.notes }}</p>
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" (click)="done()">Done</button>
+    <a routerLink="/dashboard" class="btn-cancel">Back to Dashboard</a>
+  </div>
+</ng-container>
+
+<ng-template #notFound>
+  <p class="not-found">Order not found. <a routerLink="/dashboard">Back to Dashboard</a></p>
+</ng-template>
