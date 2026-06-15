@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { OrdersService } from '../../../services/orders.service';
+import { ItemStatus } from '../../../models/order.model';
 
 @Component({
   selector: 'app-order-form',
@@ -17,7 +18,8 @@ export class OrderFormComponent {
   private readonly router = inject(Router);
 
   readonly itemTypes = ['Print', 'Design', 'Finishing', 'Other'];
-  readonly units = ['pcs', 'sheets', 'sqm', 'm', 'other'];
+  readonly units = ['pcs', 'sheets', 'other'];
+  readonly itemStatuses: ItemStatus[] = ['MO', 'Party', 'M S A C', 'M S V C', 'M S V J', 'M S V S', 'M I A C', 'M I A J'];
 
   form = this.fb.group({
     customerName: ['', [Validators.required, Validators.minLength(2)]],
@@ -40,7 +42,18 @@ export class OrderFormComponent {
       type: ['Print', Validators.required],
       quantity: [1, [Validators.required, Validators.min(1)]],
       unit: ['pcs', Validators.required],
-      notes: ['']
+      notes: [''],
+      sheets: [null],
+      paper: [''],
+      gsm: [''],
+      size: [''],
+      qty: [null],
+      ctp: [''],
+      sides: ['One Side'],
+      lamination: [''],
+      binding: ['Cutting'],
+      productionPaper: [''],
+      status: ['MO', Validators.required]
     });
   }
 
@@ -62,7 +75,12 @@ export class OrderFormComponent {
       customerName: raw.customerName ?? '',
       contactEmail: raw.contactEmail ?? '',
       notes: raw.notes ?? '',
-      items: (raw.items ?? []).map((item: any) => ({ ...item, status: 'Pending' }))
+      items: (raw.items ?? []).map((item: any) => ({
+        ...item,
+        sheets: item.sheets ? Number(item.sheets) : null,
+        qty: item.qty ? Number(item.qty) : null,
+        status: item.status ?? 'MO'
+      }))
     });
     this.router.navigate(['/dashboard']);
   }

@@ -22,6 +22,18 @@
         <option *ngFor="let s of itemStatuses" [value]="s">{{ s }}</option>
       </select>
     </div>
+    <div class="item-meta-grid">
+      <span><strong>Sheets:</strong> {{ item.sheets ?? '-' }}</span>
+      <span><strong>Paper:</strong> {{ item.paper || '-' }}</span>
+      <span><strong>GSM:</strong> {{ item.gsm || '-' }}</span>
+      <span><strong>Size:</strong> {{ item.size || '-' }}</span>
+      <span><strong>Qty:</strong> {{ item.qty ?? '-' }}</span>
+      <span><strong>CTP:</strong> {{ item.ctp || '-' }}</span>
+      <span><strong>Sides:</strong> {{ item.sides || '-' }}</span>
+      <span><strong>Lami:</strong> {{ item.lamination || '-' }}</span>
+      <span><strong>Binding:</strong> {{ item.binding || '-' }}</span>
+      <span><strong>Prod. Paper:</strong> {{ item.productionPaper || '-' }}</span>
+    </div>
     <p class="item-notes" *ngIf="item.notes">{{ item.notes }}</p>
   </div>
 

@@ -73,6 +73,71 @@
           </div>
         </div>
 
+        <div class="form-row">
+          <div class="form-group">
+            <label [attr.for]="'sheets-' + i">Sheets</label>
+            <input [id]="'sheets-' + i" type="number" formControlName="sheets" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'paper-' + i">Paper</label>
+            <input [id]="'paper-' + i" type="text" formControlName="paper" placeholder="Art, Maplitho, Sticker..." />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'gsm-' + i">GSM</label>
+            <input [id]="'gsm-' + i" type="text" formControlName="gsm" placeholder="90, 70..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label [attr.for]="'size-' + i">Size</label>
+            <input [id]="'size-' + i" type="text" formControlName="size" placeholder="18X23" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'qty-' + i">Qty</label>
+            <input [id]="'qty-' + i" type="number" formControlName="qty" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'ctp-' + i">CTP</label>
+            <input [id]="'ctp-' + i" type="text" formControlName="ctp" placeholder="Rp, 4, 1..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label [attr.for]="'sides-' + i">Sides</label>
+            <input [id]="'sides-' + i" type="text" formControlName="sides" placeholder="One Side" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'lamination-' + i">Lami</label>
+            <input [id]="'lamination-' + i" type="text" formControlName="lamination" placeholder="Gloss" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'binding-' + i">Binding</label>
+            <input [id]="'binding-' + i" type="text" formControlName="binding" placeholder="Cutting" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label [attr.for]="'productionPaper-' + i">Production Paper</label>
+            <input [id]="'productionPaper-' + i" type="text" formControlName="productionPaper" placeholder="MO" />
+          </div>
+
+          <div class="form-group">
+            <label [attr.for]="'status-' + i">Status</label>
+            <select [id]="'status-' + i" formControlName="status">
+              <option *ngFor="let s of itemStatuses" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+        </div>
+
         <div class="form-group">
           <label [attr.for]="'item-notes-' + i">Item Notes</label>
           <input [id]="'item-notes-' + i" type="text" formControlName="notes" placeholder="Colour spec, size, paper weight…" />

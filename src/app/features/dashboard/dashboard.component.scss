@@ -7,6 +7,34 @@
   h2 { margin: 0; font-size: 1.6rem; color: #1e293b; }
 }
 
+.header-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+
+  input[type='file'] {
+    display: none;
+  }
+}
+
+.btn-import {
+  padding: 0.5rem 1.2rem;
+  background: #0f766e;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  &:hover { background: #115e59; }
+}
+
+.import-message {
+  margin: -0.8rem 0 1rem;
+  font-size: 0.9rem;
+  color: #0f766e;
+}
+
 .btn-new {
   padding: 0.5rem 1.2rem;
   background: #1d4ed8;
@@ -52,6 +80,32 @@
   margin: 1.5rem 0 0.8rem;
 }
 
+.table-filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-input,
+.filter-select {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: white;
+}
+
+.filter-input {
+  min-width: 280px;
+  flex: 1;
+}
+
+.filter-select {
+  min-width: 180px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -73,6 +127,27 @@ table {
     text-decoration: none;
     font-weight: 600;
     &:hover { text-decoration: underline; }
+  }
+
+  .actions-col {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .delete-btn {
+    border: 1px solid #fecaca;
+    background: #fff1f2;
+    color: #b91c1c;
+    border-radius: 6px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #ffe4e6;
+    }
   }
 }
 .empty {

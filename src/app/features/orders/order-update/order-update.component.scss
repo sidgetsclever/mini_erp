@@ -71,6 +71,14 @@
 
 .item-desc { font-weight: 600; color: #1e293b; margin-right: 0.5rem; }
 .item-qty { color: #64748b; font-size: 0.88rem; }
+.item-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.35rem 0.75rem;
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  color: #475569;
+}
 .item-notes { margin: 0.5rem 0 0; color: #94a3b8; font-size: 0.85rem; font-style: italic; }
 
 .status-select {
@@ -83,9 +91,14 @@
   outline: none;
 
   &[data-status="Pending"] { background: #f1f5f9; color: #475569; }
-  &[data-status="In Progress"] { background: #fef9c3; color: #92400e; border-color: #fde68a; }
-  &[data-status="Done"] { background: #dcfce7; color: #15803d; border-color: #86efac; }
-  &[data-status="On Hold"] { background: #fee2e2; color: #7f1d1d; border-color: #fca5a5; }
+  &[data-status="MO"] { background: #e2e8f0; color: #334155; }
+  &[data-status="Party"] { background: #fef9c3; color: #92400e; border-color: #fde68a; }
+  &[data-status="M S A C"],
+  &[data-status="M S V C"],
+  &[data-status="M S V J"],
+  &[data-status="M S V S"],
+  &[data-status="M I A C"],
+  &[data-status="M I A J"] { background: #dcfce7; color: #15803d; border-color: #86efac; }
 }
 
 .actions {

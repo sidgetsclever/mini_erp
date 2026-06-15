@@ -2,6 +2,9 @@ import { Injectable, signal } from '@angular/core';
 import { Order, OrderItem, OrderStatus } from '../models/order.model';
 import { StorageService } from './storage.service';
 
+const FINAL_STATUSES = new Set<OrderItem['status']>(['M S A C', 'M S V C', 'M S V J', 'M S V S', 'M I A C', 'M I A J']);
+const STARTED_STATUSES = new Set<OrderItem['status']>(['Party', ...FINAL_STATUSES]);
+
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
   private readonly storage = new StorageService();
@@ -27,10 +30,11 @@ export class OrdersService {
     return this.orders().find(o => o.id === id);
   }
 
-  addOrder(data: { customerName: string; contactEmail: string; notes: string; items: Omit<OrderItem, 'id'>[] }) {
+  addOrder(data: { jobNo?: string; customerName: string; contactEmail: string; notes: string; items: Omit<OrderItem, 'id'>[] }) {
     const items: OrderItem[] = data.items.map(item => ({ ...item, id: this.nextItemId++ }));
     const order: Order = {
       id: this.nextOrderId++,
+      jobNo: data.jobNo,
       customerName: data.customerName,
       contactEmail: data.contactEmail,
       notes: data.notes,
@@ -53,8 +57,8 @@ export class OrdersService {
     const updated = this.orders().map(o => {
       if (o.id !== orderId) return o;
       const items = o.items.map(i => i.id === itemId ? { ...i, status } : i);
-      const allDone = items.every(i => i.status === 'Done');
-      const anyInProgress = items.some(i => i.status === 'In Progress' || i.status === 'Done');
+      const allDone = items.length > 0 && items.every(i => FINAL_STATUSES.has(i.status));
+      const anyInProgress = items.some(i => STARTED_STATUSES.has(i.status));
       let orderStatus: OrderStatus = 'New';
       if (allDone) { orderStatus = 'Done'; }
       else if (anyInProgress) { orderStatus = 'In Progress'; }
@@ -75,6 +79,11 @@ export class OrdersService {
     const updated = this.orders().map(o =>
       o.id === orderId ? { ...o, ...data, updatedAt: new Date().toISOString() } : o
     );
+    this.persist(updated);
+  }
+
+  deleteOrder(orderId: number) {
+    const updated = this.orders().filter(o => o.id !== orderId);
     this.persist(updated);
   }
 }

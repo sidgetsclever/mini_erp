@@ -1,7 +1,13 @@
 <div class="dash-header">
   <h2>Dashboard</h2>
-  <a routerLink="/orders/new" class="btn-new">+ New Order</a>
+  <div class="header-actions">
+    <label class="btn-import" for="excelImport">Import Excel</label>
+    <input id="excelImport" type="file" accept=".xlsx,.xls" (change)="importExcel($event)" />
+    <a routerLink="/orders/new" class="btn-new">+ New Order</a>
+  </div>
 </div>
+
+<p class="import-message" *ngIf="importMessage()">{{ importMessage() }}</p>
 
 <div class="stats">
   <div class="stat-card">
@@ -24,37 +30,80 @@
 
 <h3 class="table-heading">All Orders</h3>
 
-<table *ngIf="orders.length > 0; else noOrders">
+<div class="table-filters" *ngIf="orders.length > 0">
+  <input
+    type="text"
+    class="filter-input"
+    placeholder="Search by order #, customer, job, paper, GSM, size"
+    [value]="searchFilter()"
+    (input)="setSearchFilter($event)"
+  />
+
+  <select class="filter-select" [value]="statusFilter()" (change)="setStatusFilter($event)">
+    <option value="All">All Statuses</option>
+    <option value="New">New</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Done">Done</option>
+  </select>
+
+  <select class="filter-select" [value]="itemStatusFilter()" (change)="setItemStatusFilter($event)">
+    <option value="All">All Production Stages</option>
+    <option *ngFor="let s of productionStatuses" [value]="s">{{ s }}</option>
+  </select>
+</div>
+
+<table *ngIf="filteredOrders.length > 0; else noOrders">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Customer</th>
-      <th>Items</th>
-      <th>Items Done</th>
+      <th>Job No.</th>
+      <th>Client Name</th>
+      <th>Job Name</th>
+      <th>Sheets</th>
+      <th>Paper</th>
+      <th>GSM</th>
+      <th>Size</th>
+      <th>Qty</th>
+      <th>CTP</th>
+      <th>Sides</th>
+      <th>Lami</th>
+      <th>Binding</th>
+      <th>Production Paper</th>
+      <th>Stage</th>
       <th>Status</th>
       <th>Last Updated</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let o of orders">
-      <td class="id-col">{{ o.id }}</td>
-      <td>
-        <strong>{{ o.customerName }}</strong>
-        <span class="email" *ngIf="o.contactEmail"> — {{ o.contactEmail }}</span>
-      </td>
-      <td>{{ o.items.length }}</td>
-      <td>{{ doneItems(o) }} / {{ o.items.length }}</td>
+    <tr *ngFor="let o of filteredOrders">
+      <td class="id-col">{{ o.jobNo || o.id }}</td>
+      <td><strong>{{ o.customerName }}</strong></td>
+      <td>{{ o.items[0]?.description || '-' }}</td>
+      <td>{{ o.items[0]?.sheets ?? '-' }}</td>
+      <td>{{ o.items[0]?.paper || '-' }}</td>
+      <td>{{ o.items[0]?.gsm || '-' }}</td>
+      <td>{{ o.items[0]?.size || '-' }}</td>
+      <td>{{ o.items[0]?.qty ?? '-' }}</td>
+      <td>{{ o.items[0]?.ctp || '-' }}</td>
+      <td>{{ o.items[0]?.sides || '-' }}</td>
+      <td>{{ o.items[0]?.lamination || '-' }}</td>
+      <td>{{ o.items[0]?.binding || '-' }}</td>
+      <td>{{ o.items[0]?.productionPaper || '-' }}</td>
+      <td>{{ o.items[0]?.status || '-' }}</td>
       <td><span class="badge" [attr.data-status]="o.status">{{ o.status }}</span></td>
       <td class="date-col">{{ o.updatedAt | date:'dd MMM, HH:mm' }}</td>
-      <td><a class="update-link" [routerLink]="['/orders/update', o.id]">Update</a></td>
+      <td class="actions-col">
+        <a class="update-link" [routerLink]="['/orders/update', o.id]">Update</a>
+        <button type="button" class="delete-btn" (click)="deleteOrder(o.id)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
 
 <ng-template #noOrders>
   <div class="empty">
-    <p>No orders yet.</p>
-    <a routerLink="/orders/new" class="btn-new">Create your first order</a>
+    <p *ngIf="orders.length === 0">No orders yet.</p>
+    <p *ngIf="orders.length > 0">No orders match your filters.</p>
+    <a *ngIf="orders.length === 0" routerLink="/orders/new" class="btn-new">Create your first order</a>
   </div>
 </ng-template>

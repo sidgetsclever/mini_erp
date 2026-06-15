@@ -19,7 +19,7 @@ export class OrderUpdateComponent implements OnInit {
   orderId!: number;
   order = signal<Order | undefined>(undefined);
 
-  readonly itemStatuses: ItemStatus[] = ['Pending', 'In Progress', 'Done', 'On Hold'];
+  readonly itemStatuses: ItemStatus[] = ['MO', 'Party', 'M S A C', 'M S V C', 'M S V J', 'M S V S', 'M I A C', 'M I A J'];
 
   ngOnInit() {
     this.orderId = Number(this.route.snapshot.paramMap.get('id'));
